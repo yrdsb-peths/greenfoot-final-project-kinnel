@@ -8,35 +8,35 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Circle extends SmoothMover
 {
-    private double speedX = 0;
-    private double speedY = 0;
+    private double speed;
+    private int rotation;
     private boolean move = false;
-    MyWorld world;
     
     public Circle()
     {
-        world = (MyWorld) getWorld();
+        
     }
     
     public void act() 
     {
         if(move)
         {
-            setLocation(getX() + speedX, getY() + speedY);
-            speedX -= 0.05;
-            speedY -= 0.03;
-            if(speedX <= 0)
+            setRotation(rotation);
+            move(speed);
+            speed -= 0.05;
+            if(speed <= 0)
             {
                 move = false;
-                //world.resetReleased();
+                Alley.resetReleased();
             }
         }
     }  
     
-    public void startMoving(double x, double y)
+    public void startMoving(double speed, double rotation)
     {
-        speedX = x;
-        speedY = y;
+        this.speed = speed;
+        rotation = Math.toDegrees(rotation);
+        this.rotation = (int) rotation;
         move = true;
     }
 }
