@@ -12,17 +12,17 @@ public class Alley extends World
     private Circle object = new Circle();
     
     private double angleX;
-    private double startX;
     private double angleY;
-    private double startY;
     private double speed;
     private double rotation;
+    private int height = 0;
     
     private boolean startDrag = false;
     private static boolean released = false;
     private boolean clicked = false;
     
     private Label check;
+    private Wall[] walls;
     
     public Alley()
     {    
@@ -31,8 +31,13 @@ public class Alley extends World
         addObject(object, 200, 250);
         check = new Label(angleX + ", " + angleY, 50);
         addObject(check, 650, 250);
-        startX = object.getExactX();
-        startY = object.getExactY();
+        walls = new Wall[Greenfoot.getRandomNumber(10) + 4];
+        for(int i = 0; i < walls.length; i++)
+        {
+            walls[i] = new Wall();
+            height = (Greenfoot.getRandomNumber(21)) * 50;
+            addObject(walls[i], 500, height);
+        } 
     }
     
     public void act()
@@ -57,7 +62,14 @@ public class Alley extends World
         else if(released)
         {
             speed = Math.sqrt(Math.pow(object.getExactX() - angleX, 2) + Math.pow(object.getExactY() - angleY, 2)) / 20;
-            rotation = Math.atan((object.getExactY() - angleY) / (object.getExactX() - angleX));
+            if(angleX >= object.getExactX())
+            {
+                rotation = Math.PI + Math.atan((object.getExactY() - angleY) / (object.getExactX() - angleX));
+            }
+            else
+            {
+                rotation = Math.atan((object.getExactY() - angleY) / (object.getExactX() - angleX));
+            }
             object.startMoving(speed, rotation);
             released = false;
         }

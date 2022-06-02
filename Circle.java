@@ -14,16 +14,26 @@ public class Circle extends SmoothMover
     
     public Circle()
     {
-        
+
     }
     
     public void act() 
     {
         if(move)
         {
-            setRotation(rotation);
             move(speed);
             speed -= 0.05;
+            if(isTouching(Wall.class))
+            {
+                if(getX() + 10 >= getOneIntersectingObject(Wall.class).getX() - 20 && getX() + 10 <= getOneIntersectingObject(Wall.class).getX() - 21)
+                {
+                    setRotation(180 - rotation);
+                }
+                else if(getY() + 10 >= getOneIntersectingObject(Wall.class).getY() - 25)
+                {
+                    setRotation(180 - (90 - rotation));
+                }
+            }
             if(speed <= 0)
             {
                 move = false;
@@ -38,5 +48,6 @@ public class Circle extends SmoothMover
         rotation = Math.toDegrees(rotation);
         this.rotation = (int) rotation;
         move = true;
+        setRotation(this.rotation);
     }
 }
