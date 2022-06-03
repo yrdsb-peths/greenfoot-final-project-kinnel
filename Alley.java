@@ -30,12 +30,12 @@ public class Alley extends World
         super(1100, 500, 1); 
         addObject(object, 200, 250);
         check = new Label(angleX + ", " + angleY, 50);
-        addObject(check, 650, 250);
-        walls = new Wall[Greenfoot.getRandomNumber(10) + 4];
+        addObject(check, 650, 50);
+        walls = new Wall[Greenfoot.getRandomNumber(7) + 4];
         for(int i = 0; i < walls.length; i++)
         {
             walls[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(21)) * 50;
+            height = (Greenfoot.getRandomNumber(9) + 1) * 50;
             addObject(walls[i], 500, height);
         } 
     }
@@ -44,7 +44,7 @@ public class Alley extends World
     {
         mouse = Greenfoot.getMouseInfo();
 
-        if(mouse != null && mouse.getActor() == object && mouse.getButton() == 1)
+        if(mouse != null && mouse.getActor() == object && mouse.getButton() == 1 && !released)
         {
             startDrag = true;
         }
@@ -69,6 +69,10 @@ public class Alley extends World
             else
             {
                 rotation = Math.atan((object.getExactY() - angleY) / (object.getExactX() - angleX));
+            }
+            if(speed > 10)
+            {
+                speed = 10;
             }
             object.startMoving(speed, rotation);
             released = false;
