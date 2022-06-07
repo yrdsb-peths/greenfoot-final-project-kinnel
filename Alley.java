@@ -22,10 +22,12 @@ public class Alley extends World
     private boolean startDrag = false;
     private boolean released = false;
     private boolean clicked = false;
+    private boolean chaotic;
     private static boolean reset = true;
     
-    private Label check;
     private Wall[] walls;
+    private Wall[] walls2;
+    private Wall[] walls3;
     private Arrow aim;
     
     public Alley()
@@ -36,21 +38,36 @@ public class Alley extends World
         // Ordered in this manner in order for objects to appear above 
         // one another.
         reset = true;
+        chaotic = SelectMode.getMode();
         strokes = 0;
         aim = new Arrow(1);
         addObject(hole, 900, 250);
         addObject(aim, 200, 250);
         addObject(ball, 200, 250);
-        check = new Label(angleX + ", " + angleY, 50);
-        addObject(check, 650, 50);
         
         // Randomizes the number of walls and adds them at random locations
         walls = new Wall[Greenfoot.getRandomNumber(7) + 4];
+        walls2 = new Wall[Greenfoot.getRandomNumber(12)];
+        walls3 = new Wall[Greenfoot.getRandomNumber(8) + 4];
         for(int i = 0; i < walls.length; i++)
         {
             walls[i] = new Wall();
             height = (Greenfoot.getRandomNumber(9) + 1) * 50;
-            addObject(walls[i], 500, height);
+            addObject(walls[i], 400, height);
+        } 
+        
+        for(int i = 0; i < walls2.length; i++)
+        {
+            walls2[i] = new Wall();
+            height = (Greenfoot.getRandomNumber(9) + 1) * 50;
+            addObject(walls2[i], 600, height);
+        } 
+        
+        for(int i = 0; i < walls3.length; i++)
+        {
+            walls3[i] = new Wall();
+            height = (Greenfoot.getRandomNumber(9) + 1) * 50;
+            addObject(walls3[i], 800, height);
         } 
     }
     
@@ -60,6 +77,7 @@ public class Alley extends World
          * angle and speed of the ball relative to the user's mouse.
          * It can only be activated when the ball is not moving and when 
          * the mouse is in the world.
+         * Makes use of trigonometry if this makes the code more readable.
          */
         mouse = Greenfoot.getMouseInfo();
 
@@ -75,7 +93,6 @@ public class Alley extends World
             angleY = mouse.getY();
             aim.setHeight((int) speed * 20);
             aim.setRotation((int) Math.toDegrees(Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
-            check.setValue(angleX + ", " + angleY);
             if(mouse.getButton() == 1)
             {
                 released = true;
@@ -84,7 +101,7 @@ public class Alley extends World
         }
         else if(released)
         {
-            ball.startMoving(speed, rotation);
+            ball.startMoving(speed, rotation, chaotic);
             aim.disappear();
             released = false;
             reset = false;
@@ -114,6 +131,9 @@ public class Alley extends World
         }
     }
     
+    // This line would be called after each stroke ends
+    // or when the ball stops moving. It allows the user to 
+    // start another stroke.
     public static void reset()
     {
         reset = true;

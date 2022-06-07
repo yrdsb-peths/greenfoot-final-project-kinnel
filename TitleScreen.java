@@ -18,7 +18,7 @@ public class TitleScreen extends World
     {
         if(Greenfoot.mouseClicked(this))
         {
-            Greenfoot.setWorld(new Alley());
+            Greenfoot.setWorld(new SelectMode());
         }
         else if(Greenfoot.isKeyDown("space"))
         {

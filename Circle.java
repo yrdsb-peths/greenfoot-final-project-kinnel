@@ -13,10 +13,13 @@ public class Circle extends SmoothMover
     private int edgeY;
     private int rotation;
     private int delay;
+    private double slowDown;
     private boolean move = false;
+    private boolean chaotic;
     private Actor curWall;
     
     public static boolean win = false;
+    
     
     public Circle()
     {
@@ -30,12 +33,13 @@ public class Circle extends SmoothMover
         {
             move(speed);
             delay--;
-            speed -= 0.05;
+            speed -= slowDown;
+                
             edgeX = getX();
             edgeY = getY();
             
             // Collision with walls - makes ball bounce at reasonable angles
-            if(isTouching(Wall.class))
+            if(isTouching(Wall.class) )
             {
                 curWall = getOneIntersectingObject(Wall.class);
                 if(edgeX + 10 >= curWall.getX() - 20 && edgeX <= curWall.getX() - 15)
@@ -61,6 +65,11 @@ public class Circle extends SmoothMover
                     rotation = -rotation;
                     setRotation(rotation);
                     setLocation(getExactX(), curWall.getY() + 36);
+                }
+                
+                if(chaotic)
+                {
+                    setRotation(Greenfoot.getRandomNumber(360));
                 }
             }
             
@@ -118,13 +127,22 @@ public class Circle extends SmoothMover
         }
     }  
     
-    public void startMoving(double speed, double rotation)
+    public void startMoving(double speed, double rotation, boolean chaotic)
     {
-        this.speed = speed;
         rotation = Math.toDegrees(rotation);
         this.rotation = (int) rotation;
         move = true;
         setRotation(this.rotation);
-        //System.out.println(this.rotation);
+        this.chaotic = chaotic;
+        if(chaotic)
+        {
+            slowDown = (double) (Greenfoot.getRandomNumber(5) + 1) / 100;
+            this.speed = speed * (Greenfoot.getRandomNumber(3) + 1);
+        }
+        else
+        {
+            slowDown = 0.05;
+            this.speed = speed;
+        }
     }
 }
