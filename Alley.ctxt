@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Alley
-comment0.text=\r\n\ This\ class\ is\ the\ random\ game\ world.\ Will\ randomize\ objects\r\n\ \r\n\ @KT\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ This\ class\ is\ the\ random\ game\ world.\ Will\ randomize\ balls\r\n\ \r\n\ @KT\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=Alley()
 comment2.params=

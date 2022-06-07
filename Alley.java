@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * This class is the random game world. Will randomize objects
+ * This class is the random game world. Will randomize balls
  * 
  * @KT
  * @version (a version number or a date)
@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Alley extends World
 {
     private MouseInfo mouse; 
-    private Circle object = new Circle();
+    private Circle ball = new Circle();
     private Hole hole = new Hole();
     
     private double angleX;
@@ -26,18 +26,23 @@ public class Alley extends World
     
     private Label check;
     private Wall[] walls;
+    private Arrow aim;
     
     public Alley()
     {    
         // Create a new world
         super(1100, 500, 1); 
-        // Initializes the world by adding all necessary objects and variables
+        // Initializes the world by adding all necessary balls and variables
+        // Ordered in this manner in order for objects to appear above 
+        // one another.
         reset = true;
         strokes = 0;
-        addObject(object, 200, 250);
+        aim = new Arrow(1);
+        addObject(hole, 900, 250);
+        addObject(aim, 200, 250);
+        addObject(ball, 200, 250);
         check = new Label(angleX + ", " + angleY, 50);
         addObject(check, 650, 50);
-        addObject(hole, 900, 250);
         
         // Randomizes the number of walls and adds them at random locations
         walls = new Wall[Greenfoot.getRandomNumber(7) + 4];
@@ -58,14 +63,18 @@ public class Alley extends World
          */
         mouse = Greenfoot.getMouseInfo();
 
-        if(mouse != null && mouse.getActor() == object && mouse.getButton() == 1 && !released && reset)
+        if(mouse != null && mouse.getActor() == ball && mouse.getButton() == 1 && !released && reset)
         {
             startDrag = true;
+            aim.setLocation(ball.getX(), ball.getY());
+            aim.reappear();
         }
         else if(mouse != null && startDrag)
         {
             angleX = mouse.getX();
             angleY = mouse.getY();
+            aim.setHeight((int) speed * 20);
+            aim.setRotation((int) Math.toDegrees(Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
             check.setValue(angleX + ", " + angleY);
             if(mouse.getButton() == 1)
             {
@@ -75,23 +84,27 @@ public class Alley extends World
         }
         else if(released)
         {
-            speed = Math.sqrt(Math.pow(object.getExactX() - angleX, 2) + Math.pow(object.getExactY() - angleY, 2)) / 20;
-            if(angleX >= object.getExactX())
-            {
-                rotation = Math.PI + Math.atan((object.getExactY() - angleY) / (object.getExactX() - angleX));
-            }
-            else
-            {
-                rotation = Math.atan((object.getExactY() - angleY) / (object.getExactX() - angleX));
-            }
-            if(speed > 10)
-            {
-                speed = 10;
-            }
-            object.startMoving(speed, rotation);
+            ball.startMoving(speed, rotation);
+            aim.disappear();
             released = false;
             reset = false;
             strokes++;
+        }
+        
+        // Values for the rotation of ball and aim
+        // Values for speed of ball and length of aim
+        speed = Math.sqrt(Math.pow(ball.getExactX() - angleX, 2) + Math.pow(ball.getExactY() - angleY, 2)) / 20;
+        if(angleX >= ball.getExactX())
+        {
+            rotation = Math.PI + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX));
+        }
+        else
+        {
+            rotation = Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX));
+        }
+        if(speed > 10)
+        {
+            speed = 10;
         }
         
         // If the ball lands in the hole, the game ends and the player wins

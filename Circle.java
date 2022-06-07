@@ -42,21 +42,25 @@ public class Circle extends SmoothMover
                 {
                     rotation = 180 - rotation;
                     setRotation(rotation);
+                    setLocation(curWall.getX() - 31, getExactY());
                 }
                 if(edgeX - 10 <= curWall.getX() + 20 && edgeX >= curWall.getX() + 15)
                 {
                     rotation = 180 - rotation;
                     setRotation(180 - rotation);
+                    setLocation(curWall.getX() + 31, getExactY());
                 }
                 if(edgeY + 10 >= curWall.getY() - 25 && edgeY <= curWall.getY() - 20)
                 {
                     rotation = -rotation;
                     setRotation(rotation);
+                    setLocation(getExactX(), curWall.getY() - 36);
                 }
                 if(edgeY - 10 <= curWall.getY() + 25 && edgeY >= curWall.getY() + 20)
                 {
                     rotation = -rotation;
                     setRotation(rotation);
+                    setLocation(getExactX(), curWall.getY() + 36);
                 }
             }
             
@@ -89,14 +93,18 @@ public class Circle extends SmoothMover
             // Collision with hole - goes in hole at low enough speeds
             if(isTouching(Hole.class))
             {
-                if(speed > 3.5)
+                Actor hole = getOneIntersectingObject(Hole.class);
+                if(getX() + 10 >= hole.getX() && getX() - 10 <= hole.getX() && getY() + 10 >= hole.getY() && getY() - 10 <= hole.getY())
                 {
-                    setRotation(Greenfoot.getRandomNumber(360));
-                }
-                else
-                {
-                    getWorld().removeObject(this);
-                    win = true;
+                    if(speed > 3.5)
+                    {
+                        setRotation(Greenfoot.getRandomNumber(360));
+                    }
+                    else
+                    {
+                        getWorld().removeObject(this);
+                        win = true;
+                    }
                 }
             }
             
