@@ -12,7 +12,6 @@ public class Circle extends SmoothMover
     private int edgeX;
     private int edgeY;
     private int rotation;
-    private int delay;
     private double slowDown;
     private boolean move = false;
     private boolean chaotic;
@@ -32,14 +31,13 @@ public class Circle extends SmoothMover
         if(move)
         {
             move(speed);
-            delay--;
             speed -= slowDown;
                 
             edgeX = getX();
             edgeY = getY();
             
             // Collision with walls - makes ball bounce at reasonable angles
-            if(isTouching(Wall.class) )
+            if(isTouching(Wall.class))
             {
                 curWall = getOneIntersectingObject(Wall.class);
                 if(edgeX + 10 >= curWall.getX() - 20 && edgeX <= curWall.getX() - 15)
@@ -51,7 +49,7 @@ public class Circle extends SmoothMover
                 if(edgeX - 10 <= curWall.getX() + 20 && edgeX >= curWall.getX() + 15)
                 {
                     rotation = 180 - rotation;
-                    setRotation(180 - rotation);
+                    setRotation(rotation);
                     setLocation(curWall.getX() + 31, getExactY());
                 }
                 if(edgeY + 10 >= curWall.getY() - 25 && edgeY <= curWall.getY() - 20)
@@ -71,6 +69,7 @@ public class Circle extends SmoothMover
                 {
                     setRotation(Greenfoot.getRandomNumber(360));
                 }
+                System.out.println(rotation);
             }
             
             // Collision with boundaries, makes ball bounce off edges of the world

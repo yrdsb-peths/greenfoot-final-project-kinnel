@@ -27,6 +27,15 @@ public class SelectMode extends World
             chaotic = true;
             Greenfoot.setWorld(new Alley());
         }
+        else if(Greenfoot.isKeyDown("escape"))
+        {
+            Greenfoot.setWorld(new TitleScreen());
+        }
+        else if(Greenfoot.isKeyDown("l"))
+        {
+            chaotic = false;
+            Greenfoot.setWorld(new LevelSelect());
+        }
     }
     
     public static boolean getMode()

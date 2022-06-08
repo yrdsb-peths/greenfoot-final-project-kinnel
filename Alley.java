@@ -46,27 +46,27 @@ public class Alley extends World
         addObject(ball, 200, 250);
         
         // Randomizes the number of walls and adds them at random locations
-        walls = new Wall[Greenfoot.getRandomNumber(7) + 4];
-        walls2 = new Wall[Greenfoot.getRandomNumber(12)];
-        walls3 = new Wall[Greenfoot.getRandomNumber(8) + 4];
+        walls = new Wall[Greenfoot.getRandomNumber(9) + 5];
+        walls2 = new Wall[Greenfoot.getRandomNumber(9) + 4];
+        walls3 = new Wall[Greenfoot.getRandomNumber(10) + 5];
         for(int i = 0; i < walls.length; i++)
         {
             walls[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(9) + 1) * 50;
+            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
             addObject(walls[i], 400, height);
         } 
         
         for(int i = 0; i < walls2.length; i++)
         {
             walls2[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(9) + 1) * 50;
+            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
             addObject(walls2[i], 600, height);
         } 
         
         for(int i = 0; i < walls3.length; i++)
         {
             walls3[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(9) + 1) * 50;
+            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
             addObject(walls3[i], 800, height);
         } 
     }

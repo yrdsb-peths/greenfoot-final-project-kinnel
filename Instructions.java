@@ -20,7 +20,7 @@ public class Instructions extends World
     
     public void act()
     {
-        if(Greenfoot.mouseClicked(this))
+        if(Greenfoot.isKeyDown("escape"))
         {
             Greenfoot.setWorld(new TitleScreen());
         }
