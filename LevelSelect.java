@@ -12,17 +12,22 @@ public class LevelSelect extends World
     private Label[] levels;
     private Light light;    
     private int level;
+    private Preview preview;
     
     public LevelSelect()
     {    
         super(1100, 500, 1); 
-        text = new Label("Press a number to select a level", 50);
+        text = new Label("Click a number to select a level", 50);
         addObject(text, 375, 420);
+        preview = new Preview();
+        addObject(preview, 924, 416);
         light = new Light();
         level = 1;
         
+        // Highlights the number chosen (makes it easier for the user to see)
         addObject(light, 185 * level, 150);
         
+        // Creates the labels that explains each level
         levels = new Label[5];
         for(int i = 0; i < levels.length; i++)
         {
@@ -34,31 +39,34 @@ public class LevelSelect extends World
     public void act()
     {
         // The following allows the user to choose a level
-        if(Greenfoot.isKeyDown("1"))
+        if(Greenfoot.mouseClicked(levels[0]))
         {
-            text.setValue("Level 1 - Press 'space' to confirm");
+            text.setValue("Level 1 - Press 'space' to start");
             level = 1;
         }
-        if(Greenfoot.isKeyDown("2"))
+        if(Greenfoot.mouseClicked(levels[1]))
         {
-            text.setValue("Level 2 - Press 'space' to confirm");
+            text.setValue("Level 2 - Press 'space' to start");
             level = 2;
         }
-        if(Greenfoot.isKeyDown("3"))
+        if(Greenfoot.mouseClicked(levels[2]))
         {
-            text.setValue("Level 3 - Press 'space' to confirm");
+            text.setValue("Level 3 - Press 'space' to start");
             level = 3;
         }
-        if(Greenfoot.isKeyDown("4"))
+        if(Greenfoot.mouseClicked(levels[3]))
         {
-            text.setValue("Level 4 - Press 'space' to confirm");
+            text.setValue("Level 4 - Press 'space' to start");
             level = 4;
         }
-        if(Greenfoot.isKeyDown("5"))
+        if(Greenfoot.mouseClicked(levels[4]))
         {
-            text.setValue("Level 5 - Press 'space' to confirm");
+            text.setValue("Level 5 - Press 'space' to start");
             level = 5;
         }
+        
+        // The following changes the preview image to the level chosen
+        // preview.setImage("Level" + level + ".jpg");
         
         // Universal escape key, moves to the previous menu
         if(Greenfoot.isKeyDown("escape"))
@@ -74,7 +82,7 @@ public class LevelSelect extends World
         // This will change the world to the desired level
         if(Greenfoot.isKeyDown("space"))
         {
-            
+            Greenfoot.setWorld(new Alley(level));
         }
     }
 }

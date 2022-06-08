@@ -30,7 +30,13 @@ public class Alley extends World
     private Wall[] walls3;
     private Arrow aim;
     
-    public Alley()
+    /* Takes in parameter (level).
+     * This parameter will dictate the position of the walls in the game.
+     * If level = 0, world will have a random set of walls
+     * If level = 1, level 1 mini golf stage;
+     * If level = 2, level 2 mini golf stage; etc... 
+     */
+    public Alley(int level)
     {    
         // Create a new world
         super(1100, 500, 1); 
@@ -46,29 +52,30 @@ public class Alley extends World
         addObject(ball, 200, 250);
         
         // Randomizes the number of walls and adds them at random locations
-        walls = new Wall[Greenfoot.getRandomNumber(9) + 5];
-        walls2 = new Wall[Greenfoot.getRandomNumber(9) + 4];
-        walls3 = new Wall[Greenfoot.getRandomNumber(10) + 5];
-        for(int i = 0; i < walls.length; i++)
+        if(level == 0)
         {
-            walls[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
-            addObject(walls[i], 400, height);
-        } 
-        
-        for(int i = 0; i < walls2.length; i++)
+            randomizeWalls();
+        }
+        else if(level == 1)
         {
-            walls2[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
-            addObject(walls2[i], 600, height);
-        } 
-        
-        for(int i = 0; i < walls3.length; i++)
+            level1();
+        }
+        else if(level == 2)
         {
-            walls3[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
-            addObject(walls3[i], 800, height);
-        } 
+            level2();
+        }
+        else if(level == 3)
+        {
+            level3();
+        }
+        else if(level == 4)
+        {
+            level4();
+        }
+        else if(level == 5)
+        {
+            level5();
+        }
     }
     
     public void act()
@@ -137,5 +144,84 @@ public class Alley extends World
     public static void reset()
     {
         reset = true;
+    }
+    
+    // This code randomizes the location of the walls
+    public void randomizeWalls()
+    {
+        walls = new Wall[Greenfoot.getRandomNumber(9) + 5];
+        walls2 = new Wall[Greenfoot.getRandomNumber(9) + 4];
+        walls3 = new Wall[Greenfoot.getRandomNumber(10) + 5];
+        for(int i = 0; i < walls.length; i++)
+        {
+            walls[i] = new Wall();
+            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
+            addObject(walls[i], 400, height);
+        } 
+        
+        for(int i = 0; i < walls2.length; i++)
+        {
+            walls2[i] = new Wall();
+            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
+            addObject(walls2[i], 600, height);
+        } 
+        
+        for(int i = 0; i < walls3.length; i++)
+        {
+            walls3[i] = new Wall();
+            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
+            addObject(walls3[i], 800, height);
+        } 
+    }
+    
+    
+    public void level1()
+    {
+        addObject(new Wall(), 625, 100);
+        addObject(new Wall(), 625, 400);
+    }
+    
+    public void level2()
+    {
+        addObject(new Wall(), 550, 150);
+        addObject(new Wall(), 550, 200);
+        addObject(new Wall(), 550, 250);
+        addObject(new Wall(), 550, 300);
+        addObject(new Wall(), 550, 350);
+    }
+    
+    public void level3()
+    {
+        walls = new Wall[20];
+        walls2 = new Wall[4];
+        
+        for(int i = 0; i < walls.length; i++)
+        {
+            walls[i] = new Wall();
+            if(i <= 9)
+            {
+                addObject(walls[i], 40 * i + 300, 175);
+            }
+            else
+            {
+                addObject(walls[i], 40 * (i - 10) + 300, 325);
+            }
+        }
+        
+        for(int i = 0; i < walls2.length; i++)
+        {
+            walls2[i] = new Wall();
+            addObject(walls2[i], 790, 50 * i + 175);
+        }
+    }
+    
+    public void level4()
+    {
+        
+    }
+    
+    public void level5()
+    {
+        
     }
 }

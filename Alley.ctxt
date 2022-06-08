@@ -1,10 +1,23 @@
 #BlueJ class context
 comment0.target=Alley
 comment0.text=\r\n\ This\ class\ is\ the\ random\ game\ world.\ Will\ randomize\ balls\r\n\ \r\n\ @KT\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=Alley()
+comment1.params=level
+comment1.target=Alley(int)
+comment1.text=\ Takes\ in\ parameter\ (level).\r\n\ This\ parameter\ will\ dictate\ the\ position\ of\ the\ walls\ in\ the\ game.\r\n\ If\ level\ \=\ 0,\ world\ will\ have\ a\ random\ set\ of\ walls\r\n\ If\ level\ \=\ 1,\ level\ 1\ mini\ golf\ stage;\r\n\ If\ level\ \=\ 2,\ level\ 2\ mini\ golf\ stage;\ etc...\ \r\n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ reset()
-numComments=4
+comment4.params=
+comment4.target=void\ randomizeWalls()
+comment5.params=
+comment5.target=void\ level1()
+comment6.params=
+comment6.target=void\ level2()
+comment7.params=
+comment7.target=void\ level3()
+comment8.params=
+comment8.target=void\ level4()
+comment9.params=
+comment9.target=void\ level5()
+numComments=10

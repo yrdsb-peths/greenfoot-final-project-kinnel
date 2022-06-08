@@ -20,12 +20,12 @@ public class SelectMode extends World
         if(Greenfoot.mouseClicked(this))
         {
             chaotic = false;
-            Greenfoot.setWorld(new Alley());
+            Greenfoot.setWorld(new Alley(0));
         }
         else if(Greenfoot.isKeyDown("space"))
         {
             chaotic = true;
-            Greenfoot.setWorld(new Alley());
+            Greenfoot.setWorld(new Alley(0));
         }
         else if(Greenfoot.isKeyDown("escape"))
         {

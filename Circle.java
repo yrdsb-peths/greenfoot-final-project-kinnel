@@ -69,7 +69,6 @@ public class Circle extends SmoothMover
                 {
                     setRotation(Greenfoot.getRandomNumber(360));
                 }
-                System.out.println(rotation);
             }
             
             // Collision with boundaries, makes ball bounce off edges of the world
