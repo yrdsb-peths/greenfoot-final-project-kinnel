@@ -10,6 +10,7 @@ public class LevelSelect extends World
 {
     private Label text;
     private Label[] levels;
+    private Label par;
     private Light light;    
     private int level;
     private Preview preview;
@@ -18,7 +19,9 @@ public class LevelSelect extends World
     {    
         super(1100, 500, 1); 
         text = new Label("Click a number to select a level", 50);
-        addObject(text, 375, 420);
+        addObject(text, 375, 430);
+        par = new Label("", 30);
+        addObject(par, 280, 375);
         preview = new Preview();
         addObject(preview, 924, 416);
         light = new Light();
@@ -42,21 +45,25 @@ public class LevelSelect extends World
         if(Greenfoot.mouseClicked(levels[0]))
         {
             text.setValue("Level 1 - Press 'space' to start");
+            par.setValue("Par: 2 strokes || Challenge: 1 stroke");
             level = 1;
         }
         if(Greenfoot.mouseClicked(levels[1]))
         {
             text.setValue("Level 2 - Press 'space' to start");
+            par.setValue("Par: 3 strokes || Challenge: 2 strokes");
             level = 2;
         }
         if(Greenfoot.mouseClicked(levels[2]))
         {
             text.setValue("Level 3 - Press 'space' to start");
+            par.setValue("Par: 4 strokes || Challenge: 2 strokes");
             level = 3;
         }
         if(Greenfoot.mouseClicked(levels[3]))
         {
             text.setValue("Level 4 - Press 'space' to start");
+            par.setValue("Par: 5 strokes || Challenge: 3 strokes");
             level = 4;
         }
         if(Greenfoot.mouseClicked(levels[4]))

@@ -9,6 +9,4 @@ comment3.params=speed\ rotation\ chaotic
 comment3.target=void\ startMoving(double,\ double,\ boolean)
 comment4.params=
 comment4.target=void\ setLastPosition()
-comment5.params=
-comment5.target=void\ end()
-numComments=6
+numComments=5

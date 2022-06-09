@@ -29,6 +29,7 @@ public class Alley extends World
     private Wall[] walls2;
     private Wall[] walls3;
     private Arrow aim;
+    private Label showStrokes;
     
     /* Takes in parameter (level).
      * This parameter will dictate the position of the walls in the game.
@@ -48,6 +49,7 @@ public class Alley extends World
         strokes = 0;
         aim = new Arrow(1);
         aim.disappear();
+        showStrokes = new Label("Strokes: " + strokes, 25);
         
         // Randomizes the number of walls and adds them at random locations
         if(level == 0)
@@ -75,8 +77,18 @@ public class Alley extends World
             level5();
         }
         
+        // Adds the stroke counter
+        addObject(showStrokes, 55, 20);
+        
         // Adds ball - Last in order for it to appear above all objects
-        addObject(hole, 900, 250);
+        if(level == 5)
+        {
+            addObject(hole, 1050, 250);
+        }
+        else
+        {
+            addObject(hole, 900, 250);
+        }
         addObject(aim, 200, 250);
         addObject(ball, 200, 250);
     }
@@ -124,6 +136,7 @@ public class Alley extends World
             released = false;
             reset = false;
             strokes++;
+            showStrokes.setValue("Strokes: " + strokes);
         }
         
         // Values for the rotation of ball and aim
@@ -145,7 +158,11 @@ public class Alley extends World
         // If the ball lands in the hole, the game ends and the player wins
         if(Circle.win)
         {
-            Greenfoot.setWorld(new EndScreen(strokes));
+            Greenfoot.setWorld(new EndScreen(strokes, true));
+        }
+        if(Circle.lose)
+        {
+            Greenfoot.setWorld(new EndScreen(0, false));
         }
     }
     
@@ -293,6 +310,43 @@ public class Alley extends World
     
     public void level5()
     {
+        Water[][] water = new Water[2][7];
+        for(int i = 0; i < 2; i++)
+        {
+            for(int j = 0; j < 7; j++)
+            {
+                water[i][j] = new Water();
+                addObject(water[i][j], 250 + 100 * j, 50 + 400 * i);
+            }
+        }
+        addObject(new Water(), 300, 250);
+        addObject(new Water(), 400, 250);
+        addObject(new Water(), 50, 50);
+        addObject(new Water(), 50, 150);
+        addObject(new Water(), 50, 250);
+        addObject(new Water(), 50, 350);
+        addObject(new Water(), 50, 450);
+        addObject(new Water(), 600, 350);
+        addObject(new Water(), 600, 150);
+        addObject(new Water(), 920, 250);
         
+        walls = new Wall[4];
+        walls2 = new Wall[4];
+        walls3 = new Wall[4];
+        for(int i = 0; i < 4; i++)
+        {
+            walls[i] = new Wall();
+            walls2[i] = new Wall();
+            walls3[i] = new Wall();
+            addObject(walls[i], 1080, 25 + 50 * i);
+            addObject(walls2[i], 1080, 475 - 50 * i);
+            addObject(walls3[i], 850, 175 + 50 * i);
+        }
+        addObject(new Wall(), 670, 205);
+        addObject(new Wall(), 710, 205);
+        addObject(new Wall(), 750, 205);
+        addObject(new Wall(), 670, 295);
+        addObject(new Wall(), 710, 295);
+        addObject(new Wall(), 750, 295);
     }
 }
