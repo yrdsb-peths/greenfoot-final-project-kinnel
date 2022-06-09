@@ -66,7 +66,7 @@ public class LevelSelect extends World
         }
         
         // The following changes the preview image to the level chosen
-        // preview.setImage("Level" + level + ".jpg");
+        preview.setImage("Level" + level + ".jpg");
         
         // Universal escape key, moves to the previous menu
         if(Greenfoot.isKeyDown("escape"))

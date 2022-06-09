@@ -31,7 +31,7 @@ public class SelectMode extends World
         {
             Greenfoot.setWorld(new TitleScreen());
         }
-        else if(Greenfoot.isKeyDown("l"))
+        else if(Greenfoot.isKeyDown("shift"))
         {
             chaotic = false;
             Greenfoot.setWorld(new LevelSelect());

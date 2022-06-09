@@ -9,16 +9,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Arrow extends SmoothMover
 {
     private int height;
+    private int inHeight;
     GreenfootImage image = getImage();
     
     public Arrow(int height)
     {
         this.height = height;
+        inHeight = image.getHeight();
     }
     
     public void act()
     {
-        image.scale(image.getWidth(), height);
+        image.scale(image.getWidth(), inHeight * (2 * height));
     }
     
     public void setHeight(int height)

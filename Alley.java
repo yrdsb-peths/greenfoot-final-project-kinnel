@@ -47,9 +47,7 @@ public class Alley extends World
         chaotic = SelectMode.getMode();
         strokes = 0;
         aim = new Arrow(1);
-        addObject(hole, 900, 250);
-        addObject(aim, 200, 250);
-        addObject(ball, 200, 250);
+        aim.disappear();
         
         // Randomizes the number of walls and adds them at random locations
         if(level == 0)
@@ -76,6 +74,11 @@ public class Alley extends World
         {
             level5();
         }
+        
+        // Adds ball - Last in order for it to appear above all objects
+        addObject(hole, 900, 250);
+        addObject(aim, 200, 250);
+        addObject(ball, 200, 250);
     }
     
     public void act()
@@ -98,8 +101,16 @@ public class Alley extends World
         {
             angleX = mouse.getX();
             angleY = mouse.getY();
-            aim.setHeight((int) speed * 20);
-            aim.setRotation((int) Math.toDegrees(Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
+            aim.setHeight((int) speed);
+            if(angleX - ball.getX() <= 0)
+            {
+                aim.setRotation((int) Math.toDegrees(Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
+            }
+            else
+            {
+                aim.setRotation((int) Math.toDegrees(-Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
+            }
+                
             if(mouse.getButton() == 1)
             {
                 released = true;
@@ -155,33 +166,31 @@ public class Alley extends World
         for(int i = 0; i < walls.length; i++)
         {
             walls[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
+            height = (Greenfoot.getRandomNumber(10)) * 50 + 25;
             addObject(walls[i], 400, height);
         } 
         
         for(int i = 0; i < walls2.length; i++)
         {
             walls2[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
+            height = (Greenfoot.getRandomNumber(10)) * 50 + 25;
             addObject(walls2[i], 600, height);
         } 
         
         for(int i = 0; i < walls3.length; i++)
         {
             walls3[i] = new Wall();
-            height = (Greenfoot.getRandomNumber(11) + 1) * 45;
+            height = (Greenfoot.getRandomNumber(10)) * 50 + 25;
             addObject(walls3[i], 800, height);
         } 
     }
     
-    
+    /* The following methods are used to build the world for each level.
+     * Each level has a unique level design that never changes, resulting
+     * In a lot of lines but all it does is create appropriate objects and
+     * places them onto the world / alley.
+     */
     public void level1()
-    {
-        addObject(new Wall(), 625, 100);
-        addObject(new Wall(), 625, 400);
-    }
-    
-    public void level2()
     {
         addObject(new Wall(), 550, 150);
         addObject(new Wall(), 550, 200);
@@ -190,7 +199,7 @@ public class Alley extends World
         addObject(new Wall(), 550, 350);
     }
     
-    public void level3()
+    public void level2()
     {
         walls = new Wall[20];
         walls2 = new Wall[4];
@@ -215,9 +224,71 @@ public class Alley extends World
         }
     }
     
+    public void level3()
+    {
+        Water[][] water = new Water[2][3];
+        for(int i = 0; i < 2; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                water[i][j] = new Water();
+                addObject(water[i][j], 400 * (i + 1), 50 + 100 * j);
+            }
+        }
+        
+        Water[] water2 = new Water[2];
+        for(int k = 0; k < 2; k++)
+        {
+            water2[k] = new Water();
+            addObject(water2[k], 600, 450 - k * 100);
+        }
+    }
+    
     public void level4()
     {
+        Water[] water = new Water[3];
+        Wall[][] walled = new Wall[3][3];
+        for(int i = 0; i < 3; i++)
+        {
+            water[i] = new Water();
+            addObject(water[i], 400, 50 + 100 * i);
+            for(int j = 0; j < 3; j++)
+            {
+                walled[i][j] = new Wall();
+                if(i == 1)
+                {
+                    addObject(walled[i][j], 20, 475 - 50 * j);
+                }
+                else if(i == 2)
+                {
+                    addObject(walled[i][j], 330 - j * 40, 475);
+                }
+                else
+                {
+                    addObject(walled[i][j], 630, 275 - j * 50);
+                }
+            }
+        }
+        addObject(new Water(), 300, 300);
+        addObject(new Water(), 400, 450);
+        addObject(new Water(), 660, 350);
+        addObject(new Water(), 760, 350);
+        addObject(new Water(), 900, 450);
+        addObject(new Water(), 1000, 450);
+        addObject(new Water(), 1050, 50);
+        addObject(new Water(), 1050, 150);
+        addObject(new Water(), 1050, 250);
+        addObject(new Water(), 1050, 350);
         
+        addObject(new Wall(), 230, 275);
+        addObject(new Wall(), 230, 325);
+        
+        Wall[] moreWalls = new Wall[6];
+        for(int i = 0; i < 6; i++)
+        {
+            moreWalls[i] = new Wall();
+            addObject(moreWalls[i], 470, 275 - i * 50);
+        }
     }
     
     public void level5()

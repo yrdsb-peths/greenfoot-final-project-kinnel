@@ -12,6 +12,7 @@ comment4.params=
 comment4.target=void\ randomizeWalls()
 comment5.params=
 comment5.target=void\ level1()
+comment5.text=\ The\ following\ methods\ are\ used\ to\ build\ the\ world\ for\ each\ level.\r\n\ Each\ level\ has\ a\ unique\ level\ design\ that\ never\ changes,\ resulting\r\n\ In\ a\ lot\ of\ lines\ but\ all\ it\ does\ is\ create\ appropriate\ objects\ and\r\n\ places\ them\ onto\ the\ world\ /\ alley.\r\n
 comment6.params=
 comment6.target=void\ level2()
 comment7.params=

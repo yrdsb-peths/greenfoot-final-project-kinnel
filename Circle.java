@@ -9,12 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Circle extends SmoothMover
 {
     private double speed;
-    private int edgeX;
-    private int edgeY;
     private int rotation;
     private double slowDown;
     private boolean move = false;
     private boolean chaotic;
+    private double prevX;
+    private double prevY;
     private Actor curWall;
     
     public static boolean win = false;
@@ -23,6 +23,8 @@ public class Circle extends SmoothMover
     public Circle()
     {
         win = false;
+        prevX = 200;
+        prevY = 250;
     }
     
     public void act() 
@@ -32,37 +34,38 @@ public class Circle extends SmoothMover
         {
             move(speed);
             speed -= slowDown;
-                
-            edgeX = getX();
-            edgeY = getY();
-            
+                            
             // Collision with walls - makes ball bounce at reasonable angles
             if(isTouching(Wall.class))
             {
                 curWall = getOneIntersectingObject(Wall.class);
-                if(edgeX + 10 >= curWall.getX() - 20 && edgeX <= curWall.getX() - 15)
+                if(getX() + 10 >= curWall.getX() - 20 && getX() <= curWall.getX() - 15 && prevX < curWall.getX() - 20)
                 {
                     rotation = 180 - rotation;
                     setRotation(rotation);
                     setLocation(curWall.getX() - 31, getExactY());
+                    setLastPosition();
                 }
-                if(edgeX - 10 <= curWall.getX() + 20 && edgeX >= curWall.getX() + 15)
+                if(getX() - 10 <= curWall.getX() + 20 && getX() >= curWall.getX() + 15 && prevX > curWall.getX() + 20)
                 {
                     rotation = 180 - rotation;
                     setRotation(rotation);
                     setLocation(curWall.getX() + 31, getExactY());
+                    setLastPosition();
                 }
-                if(edgeY + 10 >= curWall.getY() - 25 && edgeY <= curWall.getY() - 20)
+                if(getY() + 10 >= curWall.getY() - 25 && getY() <= curWall.getY() - 20 && prevY < curWall.getY() - 25)
                 {
                     rotation = -rotation;
                     setRotation(rotation);
                     setLocation(getExactX(), curWall.getY() - 36);
+                    setLastPosition();
                 }
-                if(edgeY - 10 <= curWall.getY() + 25 && edgeY >= curWall.getY() + 20)
+                if(getY() - 10 <= curWall.getY() + 25 && getY() >= curWall.getY() + 20 && prevY > curWall.getY() + 25)
                 {
                     rotation = -rotation;
                     setRotation(rotation);
                     setLocation(getExactX(), curWall.getY() + 36);
+                    setLastPosition();
                 }
                 
                 if(chaotic)
@@ -72,29 +75,33 @@ public class Circle extends SmoothMover
             }
             
             // Collision with boundaries, makes ball bounce off edges of the world
-            if(edgeX + 10 >= 1100)
+            if(getX() + 10 >= 1100)
             {
                 rotation = 180 - rotation;
                 setRotation(rotation);
                 setLocation(1089, getExactY());
+                setLastPosition();
             }
-            if(edgeX - 10 <= 0)
+            if(getX() - 10 <= 0)
             {
                 rotation = 180 - rotation;
                 setRotation(rotation);
                 setLocation(11, getExactY());
+                setLastPosition();
             }
-            if(edgeY + 10 >= 500)
+            if(getY() + 10 >= 500)
             {
                 rotation = -rotation;
                 setRotation(rotation);
                 setLocation(getExactX(), 489);
+                setLastPosition();
             }
-            if(edgeY - 10 <= 0)
+            if(getY() - 10 <= 0)
             {
                 rotation = -rotation;
                 setRotation(rotation);
                 setLocation(getExactX(), 11);
+                setLastPosition();
             }
             
             // Collision with hole - goes in hole at low enough speeds
@@ -106,12 +113,23 @@ public class Circle extends SmoothMover
                     if(speed > 3.5)
                     {
                         setRotation(Greenfoot.getRandomNumber(360));
+                        setLastPosition();
                     }
                     else
                     {
-                        getWorld().removeObject(this);
-                        win = true;
+                        end();
                     }
+                }
+            }
+            
+            // Checks whether the player has landed in water.
+            // If they do fall in water, the game is over. 
+            if(isTouching(Water.class))
+            {
+                Actor water = getOneIntersectingObject(Water.class);
+                if(getX() >= water.getX() - 50 && getX() <= water.getX() + 50 && getY() >= water.getY() - 50 && getY() <= water.getY() + 50)
+                {
+                    end();
                 }
             }
             
@@ -120,6 +138,7 @@ public class Circle extends SmoothMover
             if(speed <= 0)
             {
                 move = false;
+                setLastPosition();
                 Alley.reset();
             }
         }
@@ -142,5 +161,19 @@ public class Circle extends SmoothMover
             slowDown = 0.05;
             this.speed = speed;
         }
+    }
+    
+    // This allows the program to understand where the ball came from
+    // Fixes weird bounces off walls
+    public void setLastPosition()
+    {
+        prevX = getExactX();
+        prevY = getExactY();
+    }
+    
+    // Ends the game
+    public void end()
+    {
+        win = true;
     }
 }
