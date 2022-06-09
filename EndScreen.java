@@ -11,11 +11,18 @@ public class EndScreen extends World
     private int strokes;
 
     // Constructor takes in number of strokes counted from the game World
-    public EndScreen(int strokes)
+    public EndScreen(int strokes, boolean win)
     {    
         super(1100, 500, 1); 
         this.strokes = strokes;
-        addObject(new Label("Strokes: " + strokes, 50), 850, 325);
+        if(win)
+        {
+            addObject(new Label("Strokes: " + strokes, 50), 850, 325);
+        }
+        else
+        {
+            addObject(new Label("You lose", 50), 850, 325);
+        }
     }
     
     public void act()

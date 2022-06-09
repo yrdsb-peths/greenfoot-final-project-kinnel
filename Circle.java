@@ -18,11 +18,12 @@ public class Circle extends SmoothMover
     private Actor curWall;
     
     public static boolean win = false;
-    
+    public static boolean lose = false;
     
     public Circle()
     {
         win = false;
+        lose = false;
         prevX = 200;
         prevY = 250;
     }
@@ -117,7 +118,7 @@ public class Circle extends SmoothMover
                     }
                     else
                     {
-                        end();
+                        win = true;
                     }
                 }
             }
@@ -129,7 +130,7 @@ public class Circle extends SmoothMover
                 Actor water = getOneIntersectingObject(Water.class);
                 if(getX() >= water.getX() - 50 && getX() <= water.getX() + 50 && getY() >= water.getY() - 50 && getY() <= water.getY() + 50)
                 {
-                    end();
+                    lose = true;
                 }
             }
             
@@ -169,11 +170,5 @@ public class Circle extends SmoothMover
     {
         prevX = getExactX();
         prevY = getExactY();
-    }
-    
-    // Ends the game
-    public void end()
-    {
-        win = true;
     }
 }
