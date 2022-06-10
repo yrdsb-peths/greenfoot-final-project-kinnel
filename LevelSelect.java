@@ -69,6 +69,7 @@ public class LevelSelect extends World
         if(Greenfoot.mouseClicked(levels[4]))
         {
             text.setValue("Level 5 - Press 'space' to start");
+            par.setValue("Par: 7 strokes || Challenge: 5 strokes");
             level = 5;
         }
         

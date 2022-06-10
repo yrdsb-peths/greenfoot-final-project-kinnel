@@ -69,6 +69,8 @@ public class Circle extends SmoothMover
                     setLastPosition();
                 }
                 
+                // If the game mode is augmented fiziks, then it will bounce 
+                // off walls at random angles
                 if(chaotic)
                 {
                     setRotation(Greenfoot.getRandomNumber(360));
@@ -138,6 +140,10 @@ public class Circle extends SmoothMover
             // the player can put the ball again.
             if(speed <= 0)
             {
+                if(Alley.strokes == 12)
+                {
+                    lose = true;
+                }
                 move = false;
                 setLastPosition();
                 Alley.reset();
@@ -155,7 +161,14 @@ public class Circle extends SmoothMover
         if(chaotic)
         {
             slowDown = (double) (Greenfoot.getRandomNumber(5) + 1) / 100;
-            this.speed = speed * (Greenfoot.getRandomNumber(3) + 1);
+            if(Greenfoot.getRandomNumber(2) == 0)
+            {
+                this.speed = speed * (Greenfoot.getRandomNumber(3) + 1);
+            }
+            else
+            {
+                this.speed = speed / (Greenfoot.getRandomNumber(3) + 1);
+            }
         }
         else
         {

@@ -17,7 +17,7 @@ public class Alley extends World
     private double speed;
     private double rotation;
     private int height = 0;
-    private int strokes;
+    public static int strokes;
     
     private boolean startDrag = false;
     private boolean released = false;
@@ -156,6 +156,8 @@ public class Alley extends World
         }
         
         // If the ball lands in the hole, the game ends and the player wins
+        // If the number of strokes is greater than 12 or if the ball lands
+        // in water, the game ends and the player loses.
         if(Circle.win)
         {
             Greenfoot.setWorld(new EndScreen(strokes, true));
@@ -163,6 +165,12 @@ public class Alley extends World
         if(Circle.lose)
         {
             Greenfoot.setWorld(new EndScreen(0, false));
+        }
+        
+        if(Greenfoot.isKeyDown("shift"))
+        {
+            reset = false;
+            addObject(new Pause(), 550, 250);
         }
     }
     
@@ -204,7 +212,7 @@ public class Alley extends World
     
     /* The following methods are used to build the world for each level.
      * Each level has a unique level design that never changes, resulting
-     * In a lot of lines but all it does is create appropriate objects and
+     * Iin a lot of code but all it does is create appropriate objects and
      * places them onto the world / alley.
      */
     public void level1()
