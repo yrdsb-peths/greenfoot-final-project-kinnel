@@ -8,17 +8,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Circle extends SmoothMover
 {
+    // The following variables are used for the movement of the ball
     private double speed;
     private int rotation;
     private double slowDown;
     private boolean move = false;
-    private boolean chaotic;
     private double prevX;
     private double prevY;
     private Actor curWall;
     
+    // The following variables are used for game purposes
+    private boolean chaotic;
     public static boolean win = false;
     public static boolean lose = false;
+    
+    // The following is used for animation
+    private GreenfootImage[] frames = new GreenfootImage[36];
+    private double delay;
+    private int frame;
+    private boolean changed;
     
     public Circle()
     {
@@ -26,6 +34,11 @@ public class Circle extends SmoothMover
         lose = false;
         prevX = 200;
         prevY = 250;
+        for(int i = 0; i < frames.length; i++)
+        {
+            frames[i] = new GreenfootImage("images/frames/ball (" + (i + 1) + ").png");
+        }
+        changed = true;
     }
     
     public void act() 
@@ -147,6 +160,27 @@ public class Circle extends SmoothMover
                 move = false;
                 setLastPosition();
                 Alley.reset();
+            }
+            
+            /* The following code is used to animate the rotation of the ball.
+             * As the ball should be rotating slower and slower as it slows
+             * down, the rate at which the frames switch will be based off of
+             * its current speed.
+             */
+            if(changed)
+            {
+                delay = 10 - speed;
+                changed = false;
+            }
+            
+            delay -= 1;
+            
+            if(delay <= 0)
+            {
+                changed = true;
+                frame++;
+                frame %= 36;
+                setImage(frames[frame]);
             }
         }
     }  
