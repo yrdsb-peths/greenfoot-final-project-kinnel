@@ -184,4 +184,20 @@ public class Circle extends SmoothMover
         prevX = getExactX();
         prevY = getExactY();
     }
+    
+    public void stop()
+    {
+        move = false;
+    }
+    
+    public void resume()
+    {
+        move = true;     
+    }
+    
+    public void reset()
+    {
+        speed = 0;
+        rotation = 0;
+    }
 }

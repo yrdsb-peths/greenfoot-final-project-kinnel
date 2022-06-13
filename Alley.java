@@ -24,12 +24,14 @@ public class Alley extends World
     private boolean clicked = false;
     private boolean chaotic;
     private static boolean reset = true;
+    private boolean pause = false;
     
     private Wall[] walls;
     private Wall[] walls2;
     private Wall[] walls3;
     private Arrow aim;
     private Label showStrokes;
+    private Pause pauseMenu;
     
     /* Takes in parameter (level).
      * This parameter will dictate the position of the walls in the game.
@@ -45,6 +47,7 @@ public class Alley extends World
         // Ordered in this manner in order for objects to appear above 
         // one another.
         reset = true;
+        pause = false;
         chaotic = SelectMode.getMode();
         strokes = 0;
         aim = new Arrow(1);
@@ -167,10 +170,44 @@ public class Alley extends World
             Greenfoot.setWorld(new EndScreen(0, false));
         }
         
-        if(Greenfoot.isKeyDown("shift"))
+        /* The following 2 'if statements' are used to control the pause
+         * menu of the game. When the game is paused, the ball will stop
+         * moving and the player will be given the choice to either resume
+         * the game, restart, or quit.
+         */
+        if(Greenfoot.isKeyDown("shift") && !pause)
         {
-            reset = false;
-            addObject(new Pause(), 550, 250);
+            pause = true;
+            ball.stop();
+            pauseMenu = new Pause();
+            addObject(pauseMenu, 550, 250);
+        }
+        
+        if(pause)
+        {
+            if(mouse != null && mouse.getButton() == 1)
+            {
+                pause = false;
+                ball.resume();
+                removeObject(pauseMenu);
+            }
+            else if(Greenfoot.isKeyDown("space"))
+            {
+                reset();
+                Greenfoot.setWorld(new TitleScreen());
+                pause = false;
+            }
+            else if(Greenfoot.isKeyDown("r"))
+            {
+                ball.setLocation(200, 250);
+                aim.setLocation(200, 250);
+                ball.reset();
+                strokes = 0;
+                showStrokes.setValue("Strokes: " + strokes);
+                removeObject(pauseMenu);
+                pause = false;
+                reset();
+            }
         }
     }
     

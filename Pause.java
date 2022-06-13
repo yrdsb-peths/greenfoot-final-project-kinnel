@@ -8,12 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Pause extends Actor
 {
-    /**
-     * Act - do whatever the Pause wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
+    public Pause()
     {
-        // Add your action code here.
-    }    
+        GreenfootImage image = getImage();
+        image.setTransparency(220);
+    }
 }
