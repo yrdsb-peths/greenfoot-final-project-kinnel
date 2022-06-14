@@ -22,11 +22,11 @@ public class Circle extends SmoothMover
     public static boolean win = false;
     public static boolean lose = false;
     
-    // The following is used for animation
-    private GreenfootImage[] frames = new GreenfootImage[36];
-    private double delay;
-    private int frame;
-    private boolean changed;
+    // The following are sounds
+    private GreenfootSound in = new GreenfootSound("BallIn.mp3");
+    private GreenfootSound out = new GreenfootSound("BallRattle.mp3");
+    private GreenfootSound bounce;
+    private GreenfootSound dropped = new GreenfootSound("Water.mp3");
     
     public Circle()
     {
@@ -34,11 +34,6 @@ public class Circle extends SmoothMover
         lose = false;
         prevX = 200;
         prevY = 250;
-        for(int i = 0; i < frames.length; i++)
-        {
-            frames[i] = new GreenfootImage("images/frames/ball (" + (i + 1) + ").png");
-        }
-        changed = true;
     }
     
     public void act() 
@@ -88,6 +83,8 @@ public class Circle extends SmoothMover
                 {
                     setRotation(Greenfoot.getRandomNumber(360));
                 }
+                bounce.stop();
+                bounce.play();
             }
             
             // Collision with boundaries, makes ball bounce off edges of the world
@@ -97,6 +94,8 @@ public class Circle extends SmoothMover
                 setRotation(rotation);
                 setLocation(1089, getExactY());
                 setLastPosition();
+                bounce.stop();
+                bounce.play();
             }
             if(getX() - 10 <= 0)
             {
@@ -104,6 +103,7 @@ public class Circle extends SmoothMover
                 setRotation(rotation);
                 setLocation(11, getExactY());
                 setLastPosition();
+                bounce.play();
             }
             if(getY() + 10 >= 500)
             {
@@ -111,6 +111,8 @@ public class Circle extends SmoothMover
                 setRotation(rotation);
                 setLocation(getExactX(), 489);
                 setLastPosition();
+                bounce.stop();
+                bounce.play();
             }
             if(getY() - 10 <= 0)
             {
@@ -118,6 +120,8 @@ public class Circle extends SmoothMover
                 setRotation(rotation);
                 setLocation(getExactX(), 11);
                 setLastPosition();
+                bounce.stop();
+                bounce.play();
             }
             
             // Collision with hole - goes in hole at low enough speeds
@@ -130,10 +134,12 @@ public class Circle extends SmoothMover
                     {
                         setRotation(Greenfoot.getRandomNumber(360));
                         setLastPosition();
+                        out.play();
                     }
                     else
                     {
                         win = true;
+                        in.play();
                     }
                 }
             }
@@ -146,6 +152,7 @@ public class Circle extends SmoothMover
                 if(getX() >= water.getX() - 50 && getX() <= water.getX() + 50 && getY() >= water.getY() - 50 && getY() <= water.getY() + 50)
                 {
                     lose = true;
+                    dropped.play();
                 }
             }
             
@@ -160,27 +167,6 @@ public class Circle extends SmoothMover
                 move = false;
                 setLastPosition();
                 Alley.reset();
-            }
-            
-            /* The following code is used to animate the rotation of the ball.
-             * As the ball should be rotating slower and slower as it slows
-             * down, the rate at which the frames switch will be based off of
-             * its current speed.
-             */
-            if(changed)
-            {
-                delay = 10 - speed;
-                changed = false;
-            }
-            
-            delay -= 1;
-            
-            if(delay <= 0)
-            {
-                changed = true;
-                frame++;
-                frame %= 36;
-                setImage(frames[frame]);
             }
         }
     }  
@@ -203,11 +189,13 @@ public class Circle extends SmoothMover
             {
                 this.speed = speed / (Greenfoot.getRandomNumber(3) + 1);
             }
+            bounce = new GreenfootSound("ChaosBounce.mp3");
         }
         else
         {
             slowDown = 0.05;
             this.speed = speed;
+            bounce = new GreenfootSound("BallBounce.mp3");
         }
     }
     

@@ -1,7 +1,7 @@
 #Greenfoot project file
 class.Alley.image=Alley.jpg
 class.Arrow.image=Arrow.png
-class.Circle.image=ball\ (1).png
+class.Circle.image=Ball.png
 class.EndScreen.image=EndScreen.jpg
 class.Hole.image=hole.png
 class.Instructions.image=Instructions.jpg

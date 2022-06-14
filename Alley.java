@@ -18,6 +18,7 @@ public class Alley extends World
     private double rotation;
     private int height = 0;
     public static int strokes;
+    private int delay;
     
     private boolean startDrag = false;
     private boolean released = false;
@@ -33,6 +34,10 @@ public class Alley extends World
     private Label showStrokes;
     private Pause pauseMenu;
     
+    // The following are sounds
+    private static GreenfootSound music;
+    private static GreenfootSound hit;
+
     /* Takes in parameter (level).
      * This parameter will dictate the position of the walls in the game.
      * If level = 0, world will have a random set of walls
@@ -48,11 +53,27 @@ public class Alley extends World
         // one another.
         reset = true;
         pause = false;
+        delay = 0;
         chaotic = SelectMode.getMode();
         strokes = 0;
         aim = new Arrow(1);
         aim.disappear();
         showStrokes = new Label("Strokes: " + strokes, 25);
+        
+        // Stops the previous music and plays new music
+        if(chaotic)
+        {
+            hit = new GreenfootSound("ChaosHit.mp3");
+            music = new GreenfootSound("ChaosTheme.mp3");
+        }
+        else
+        {
+            hit = new GreenfootSound("BallHit.mp3");
+            music = new GreenfootSound("GolfingTheme.mp3");
+        }
+        TitleScreen.stopMusic();
+        music.setVolume(60);
+        music.playLoop();
         
         // Randomizes the number of walls and adds them at random locations
         if(level == 0)
@@ -126,10 +147,11 @@ public class Alley extends World
                 aim.setRotation((int) Math.toDegrees(-Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
             }
                 
-            if(mouse.getButton() == 1)
+            if(mouse.getButton() == 1 && delay <= 0)
             {
                 released = true;
                 startDrag = false;
+                hit.play();
             }
         }
         else if(released)
@@ -181,6 +203,7 @@ public class Alley extends World
             ball.stop();
             pauseMenu = new Pause();
             addObject(pauseMenu, 550, 250);
+            music.setVolume(30);
         }
         
         if(pause)
@@ -190,12 +213,14 @@ public class Alley extends World
                 pause = false;
                 ball.resume();
                 removeObject(pauseMenu);
+                music.setVolume(60);
             }
             else if(Greenfoot.isKeyDown("space"))
             {
                 reset();
                 Greenfoot.setWorld(new TitleScreen());
                 pause = false;
+                music.stop();
             }
             else if(Greenfoot.isKeyDown("r"))
             {
@@ -207,8 +232,11 @@ public class Alley extends World
                 removeObject(pauseMenu);
                 pause = false;
                 reset();
+                music.setVolume(60);
             }
+            delay = 10;
         }
+        delay--;
     }
     
     // This line would be called after each stroke ends
@@ -222,9 +250,9 @@ public class Alley extends World
     // This code randomizes the location of the walls
     public void randomizeWalls()
     {
-        walls = new Wall[Greenfoot.getRandomNumber(9) + 5];
-        walls2 = new Wall[Greenfoot.getRandomNumber(9) + 4];
-        walls3 = new Wall[Greenfoot.getRandomNumber(10) + 5];
+        walls = new Wall[Greenfoot.getRandomNumber(6) + 5];
+        walls2 = new Wall[Greenfoot.getRandomNumber(5) + 4];
+        walls3 = new Wall[Greenfoot.getRandomNumber(7) + 5];
         for(int i = 0; i < walls.length; i++)
         {
             walls[i] = new Wall();
@@ -393,5 +421,11 @@ public class Alley extends World
         addObject(new Wall(), 670, 295);
         addObject(new Wall(), 710, 295);
         addObject(new Wall(), 750, 295);
+    }
+    
+    // Stops the music
+    public static void stopMusic()
+    {
+        music.stop();
     }
 }

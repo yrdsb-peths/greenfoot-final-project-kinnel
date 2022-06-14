@@ -8,10 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TitleScreen extends World
 {
-
+    private static GreenfootSound music = new GreenfootSound("Intro.mp3");
+    
     public TitleScreen()
     {    
-        super(1100, 500, 1); 
+        super(1100, 500, 1);
     }
     
     public void act()
@@ -24,5 +25,20 @@ public class TitleScreen extends World
         {
             Greenfoot.setWorld(new Instructions());
         }
+    }
+    
+    public void started()
+    {
+        music.playLoop();
+    }
+    
+    public static void stopMusic()
+    {
+        music.stop();
+    }
+    
+    public static void playMusic()
+    {
+        music.playLoop();
     }
 }
