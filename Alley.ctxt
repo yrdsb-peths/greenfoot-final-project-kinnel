@@ -1,20 +1,22 @@
 #BlueJ class context
 comment0.target=Alley
-comment0.text=\r\n\ This\ class\ is\ the\ random\ game\ world.\ Will\ randomize\ balls\r\n\ \r\n\ @KT\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ This\ class\ is\ the\ game\ world\ where\ the\ player\ will\ play\ the\ game.\r\n\ \r\n\ @author\ Kinnel\ Tsang\r\n\ @version\ June\ 15,\ 2022\r\n
 comment1.params=level
 comment1.target=Alley(int)
-comment1.text=\ Takes\ in\ parameter\ (level).\r\n\ This\ parameter\ will\ dictate\ the\ position\ of\ the\ walls\ in\ the\ game.\r\n\ If\ level\ \=\ 0,\ world\ will\ have\ a\ random\ set\ of\ walls\r\n\ If\ level\ \=\ 1,\ level\ 1\ mini\ golf\ stage;\r\n\ If\ level\ \=\ 2,\ level\ 2\ mini\ golf\ stage;\ etc...\ \r\n
+comment1.text=\r\n\ Creates\ a\ new\ golf\ world\ and\ takes\ in\ a\ parameter\ (level).\r\n\ \r\n\ @param\ level\:\ If\ level\ \=\ 0,\ world\ will\ have\ a\ random\ set\ of\ walls,\r\n\ if\ level\ \=\ 1,\ a\ level\ 1\ mini\ golf\ stage\ will\ be\ created\ with\ a\ set\r\n\ of\ preset\ walls\ and\ water,\ and\ so\ on\ and\ so\ forth\ until\ 5.\r\n
 comment10.params=
 comment10.target=void\ stopMusic()
+comment10.text=\r\n\ Stops\ the\ music\ from\ being\ played.\r\n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ reset()
+comment3.text=\r\n\ This\ line\ would\ be\ called\ after\ each\ stroke\ ends.\r\n\ It\ allows\ the\ user\ to\ start\ another\ stroke.\r\n
 comment4.params=
 comment4.target=void\ randomizeWalls()
 comment5.params=
 comment5.target=void\ level1()
-comment5.text=\ The\ following\ methods\ are\ used\ to\ build\ the\ world\ for\ each\ level.\r\n\ Each\ level\ has\ a\ unique\ level\ design\ that\ never\ changes,\ resulting\r\n\ Iin\ a\ lot\ of\ code\ but\ all\ it\ does\ is\ create\ appropriate\ objects\ and\r\n\ places\ them\ onto\ the\ world\ /\ alley.\r\n
+comment5.text=\ The\ following\ methods\ are\ used\ to\ build\ the\ world\ for\ each\ level.\r\n\ Each\ level\ has\ a\ unique\ level\ design\ that\ never\ changes,\ resulting\r\n\ in\ a\ lot\ of\ code\ but\ all\ it\ does\ is\ create\ appropriate\ objects\ and\r\n\ places\ them\ onto\ the\ world\ /\ alley.\r\n
 comment6.params=
 comment6.target=void\ level2()
 comment7.params=

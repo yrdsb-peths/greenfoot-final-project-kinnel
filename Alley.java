@@ -1,56 +1,59 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * This class is the random game world. Will randomize balls
+ * This class is the game world where the player will play the game.
  * 
- * @KT
- * @version (a version number or a date)
+ * @author Kinnel Tsang
+ * @version June 15, 2022
  */
 public class Alley extends World
 {
-    private MouseInfo mouse; 
-    private Circle ball = new Circle();
-    private Hole hole = new Hole();
-    
+    // the following are used to calculate the angle and speed of the ball
     private double angleX;
     private double angleY;
     private double speed;
     private double rotation;
-    private int height = 0;
-    public static int strokes;
-    private int delay;
     
+    // the following are used for gameplay purposes
     private boolean startDrag = false;
     private boolean released = false;
     private boolean clicked = false;
     private boolean chaotic;
     private static boolean reset = true;
     private boolean pause = false;
+    private int delay;
+    public static int strokes;
     
+    // used to build randomized walls
     private Wall[] walls;
     private Wall[] walls2;
     private Wall[] walls3;
+    private int height = 0;
+    
+    // list of actors
+    private MouseInfo mouse; 
+    private Circle ball = new Circle();
+    private Hole hole = new Hole();
     private Arrow aim;
     private Label showStrokes;
     private Pause pauseMenu;
     
-    // The following are sounds
+    // the following are sounds
     private static GreenfootSound music;
     private static GreenfootSound hit;
 
-    /* Takes in parameter (level).
-     * This parameter will dictate the position of the walls in the game.
-     * If level = 0, world will have a random set of walls
-     * If level = 1, level 1 mini golf stage;
-     * If level = 2, level 2 mini golf stage; etc... 
+    /**
+     * Creates a new golf world and takes in a parameter (level).
+     * 
+     * @param level: If level = 0, world will have a random set of walls,
+     * if level = 1, a level 1 mini golf stage will be created with a set
+     * of preset walls and water, and so on and so forth until 5.
      */
     public Alley(int level)
     {    
-        // Create a new world
         super(1100, 500, 1); 
+        
         // Initializes the world by adding all necessary balls and variables
-        // Ordered in this manner in order for objects to appear above 
-        // one another.
         reset = true;
         pause = false;
         delay = 0;
@@ -104,7 +107,7 @@ public class Alley extends World
         // Adds the stroke counter
         addObject(showStrokes, 55, 20);
         
-        // Adds ball - Last in order for it to appear above all objects
+        // Adds ball and hole
         if(level == 5)
         {
             addObject(hole, 1050, 250);
@@ -146,6 +149,7 @@ public class Alley extends World
             {
                 aim.setRotation((int) Math.toDegrees(-Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
             }
+            ball.setRotation((int) rotation);
                 
             if(mouse.getButton() == 1)
             {
@@ -164,8 +168,8 @@ public class Alley extends World
             showStrokes.setValue("Strokes: " + strokes);
         }
         
-        // Values for the rotation of ball and aim
-        // Values for speed of ball and length of aim
+        // Calculates the value for the rotation of ball and aim
+        // Calculates the value for speed of ball and length of aim
         speed = Math.sqrt(Math.pow(ball.getExactX() - angleX, 2) + Math.pow(ball.getExactY() - angleY, 2)) / 20;
         if(angleX >= ball.getExactX())
         {
@@ -205,7 +209,6 @@ public class Alley extends World
             addObject(pauseMenu, 550, 250);
             music.setVolume(30);
         }
-        
         if(pause)
         {
             if(mouse != null && mouse.getButton() == 1)
@@ -239,16 +242,17 @@ public class Alley extends World
         delay--;
     }
     
-    // This line would be called after each stroke ends
-    // or when the ball stops moving. It allows the user to 
-    // start another stroke.
+    /**
+     * This line would be called after each stroke ends.
+     * It allows the user to start another stroke.
+     */
     public static void reset()
     {
         reset = true;
     }
     
     // This code randomizes the location of the walls
-    public void randomizeWalls()
+    private void randomizeWalls()
     {
         walls = new Wall[Greenfoot.getRandomNumber(6) + 5];
         walls2 = new Wall[Greenfoot.getRandomNumber(5) + 4];
@@ -277,10 +281,10 @@ public class Alley extends World
     
     /* The following methods are used to build the world for each level.
      * Each level has a unique level design that never changes, resulting
-     * Iin a lot of code but all it does is create appropriate objects and
+     * in a lot of code but all it does is create appropriate objects and
      * places them onto the world / alley.
      */
-    public void level1()
+    private void level1()
     {
         addObject(new Wall(), 550, 150);
         addObject(new Wall(), 550, 200);
@@ -289,7 +293,7 @@ public class Alley extends World
         addObject(new Wall(), 550, 350);
     }
     
-    public void level2()
+    private void level2()
     {
         walls = new Wall[20];
         walls2 = new Wall[4];
@@ -314,7 +318,7 @@ public class Alley extends World
         }
     }
     
-    public void level3()
+    private void level3()
     {
         Water[][] water = new Water[2][3];
         for(int i = 0; i < 2; i++)
@@ -334,7 +338,7 @@ public class Alley extends World
         }
     }
     
-    public void level4()
+    private void level4()
     {
         Water[] water = new Water[3];
         Wall[][] walled = new Wall[3][3];
@@ -381,7 +385,7 @@ public class Alley extends World
         }
     }
     
-    public void level5()
+    private void level5()
     {
         Water[][] water = new Water[2][7];
         for(int i = 0; i < 2; i++)
@@ -423,7 +427,9 @@ public class Alley extends World
         addObject(new Wall(), 750, 295);
     }
     
-    // Stops the music
+    /**
+     * Stops the music from being played.
+     */
     public static void stopMusic()
     {
         music.stop();

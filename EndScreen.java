@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class EndScreen here.
+ * This class is the game world where the player will play the game.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kinnel Tsang
+ * @version June 15, 2022
  */
 public class EndScreen extends World
 {
@@ -12,7 +12,13 @@ public class EndScreen extends World
     private int delay;
     private GreenfootSound music;
 
-    // Constructor takes in number of strokes counted from the game World
+    /**
+     * Creates a the endscreen.
+     * 
+     * @param strokes: The number of strokes the player took
+     * @param win: Displays the number of strokes on the screen
+     * if they won. If they lost, shows a 'you lose' text.
+     */
     public EndScreen(int strokes, boolean win)
     {    
         super(1100, 500, 1); 
