@@ -133,7 +133,7 @@ public class Alley extends World
             aim.setLocation(ball.getX(), ball.getY());
             aim.reappear();
         }
-        else if(mouse != null && startDrag)
+        else if(mouse != null && startDrag && delay <= 0)
         {
             angleX = mouse.getX();
             angleY = mouse.getY();
@@ -147,7 +147,7 @@ public class Alley extends World
                 aim.setRotation((int) Math.toDegrees(-Math.PI/2 + Math.atan((ball.getExactY() - angleY) / (ball.getExactX() - angleX))));
             }
                 
-            if(mouse.getButton() == 1 && delay <= 0)
+            if(mouse.getButton() == 1)
             {
                 released = true;
                 startDrag = false;
