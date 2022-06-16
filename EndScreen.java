@@ -1,7 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * This class is the game world where the player will play the game.
+ * This class is the screen where the it shows the number of strokes
+ * the player took to get in the hole and whether they won or lost.
  * 
  * @author Kinnel Tsang
  * @version June 15, 2022

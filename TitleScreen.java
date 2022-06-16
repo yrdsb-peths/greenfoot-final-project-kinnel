@@ -1,15 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class TitleScreen here.
+ * This is the title screen.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kinnel Tsang
+ * @version June 16, 2022
  */
 public class TitleScreen extends World
 {
     private static GreenfootSound music = new GreenfootSound("Intro.mp3");
     
+    /**
+     * Constructor for TitleScreen class.
+     */
     public TitleScreen()
     {    
         super(1100, 500, 1);
@@ -27,6 +30,9 @@ public class TitleScreen extends World
         }
     }
     
+    /**
+     * 
+     */
     public void started()
     {
         music.playLoop();

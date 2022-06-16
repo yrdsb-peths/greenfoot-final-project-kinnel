@@ -1,20 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class SelectMode here.
+ * The player selects a mode on this screen
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kinnel Tsang
+ * @version June 16, 2022
  */
 public class SelectMode extends World
 {
     private static boolean chaotic;
     
+    /**
+     * Constructor for SelectMode class.
+     */
     public SelectMode()
     {    
         super(1100, 500, 1); 
     }
     
+    // The screen will tell the user what actions
+    // they can do to access each mode.
     public void act()
     {
         if(Greenfoot.mouseClicked(this))
@@ -38,6 +43,8 @@ public class SelectMode extends World
         }
     }
     
+    // Tells the game world whether the game has moderated
+    // physics or not.
     public static boolean getMode()
     {
         return chaotic;

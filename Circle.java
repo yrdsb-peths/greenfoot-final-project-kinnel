@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Circle here.
+ * The Circle class creates a golf ball used in the game world.
+ * The player will be trying to fire this ball into the hole.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kinnel Tsang
+ * @version June 16, 2022
  */
 public class Circle extends SmoothMover
 {
@@ -17,8 +18,10 @@ public class Circle extends SmoothMover
     private double prevY;
     private Actor curWall;
     
-    // The following variables are used for game purposes
+    // This variable makkes the ball's physics be weird if true
     private boolean chaotic;
+    
+    // The following determine whether the player wins or loses
     public static boolean win = false;
     public static boolean lose = false;
     
@@ -28,6 +31,9 @@ public class Circle extends SmoothMover
     private GreenfootSound bounce;
     private GreenfootSound dropped = new GreenfootSound("Water.mp3");
     
+    /**
+     * Constructor to create an object of Circle class.
+     */
     public Circle()
     {
         win = false;
@@ -77,7 +83,7 @@ public class Circle extends SmoothMover
                     setLastPosition();
                 }
                 
-                // If the game mode is augmented fiziks, then it will bounce 
+                // If the game mode is 'augmented fiziks', then it will bounce 
                 // off walls at random angles
                 if(chaotic)
                 {
@@ -171,6 +177,14 @@ public class Circle extends SmoothMover
         }
     }  
     
+    /**
+     * Makes the ball move based on the given parameters.
+     * 
+     * @param speed: Sets the speed of the ball, how fast it will move.
+     * @param rotation: Sets the rotation of the ball, at which direction it will move.
+     * @param chaotic: Sets the type of physics used. If true, the physics is wacky and
+     * the sounds or crazy. If false, the physics and sounds used will be basic.
+     */
     public void startMoving(double speed, double rotation, boolean chaotic)
     {
         rotation = Math.toDegrees(rotation);
@@ -201,22 +215,31 @@ public class Circle extends SmoothMover
     
     // This allows the program to understand where the ball came from
     // Fixes weird bounces off walls
-    public void setLastPosition()
+    private void setLastPosition()
     {
         prevX = getExactX();
         prevY = getExactY();
     }
     
+    /**
+     * Pauses the ball's movement.
+     */
     public void stop()
     {
         move = false;
     }
     
+    /**
+     * Resumes the ball's movement.
+     */
     public void resume()
     {
         move = true;     
     }
     
+    /**
+     * Resets the ball's speed and rotation.
+     */
     public void reset()
     {
         speed = 0;

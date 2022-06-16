@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class LevelSelect here.
+ * The player chooses a level from 1 - 5 in this world
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kinnel Tsang
+ * @version June 16, 2022
  */
 public class LevelSelect extends World
 {
@@ -15,6 +15,9 @@ public class LevelSelect extends World
     private int level;
     private Preview preview;
     
+    /**
+     * Constructor for LevelSelect class.
+     */
     public LevelSelect()
     {    
         super(1100, 500, 1); 
@@ -69,7 +72,7 @@ public class LevelSelect extends World
         if(Greenfoot.mouseClicked(levels[4]))
         {
             text.setValue("Level 5 - Press 'space' to start");
-            par.setValue("Par: 7 strokes || Challenge: 5 strokes");
+            par.setValue("Par: 6 strokes || Challenge: 4 strokes");
             level = 5;
         }
         

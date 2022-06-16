@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=EndScreen
-comment0.text=\r\n\ This\ class\ is\ the\ game\ world\ where\ the\ player\ will\ play\ the\ game.\r\n\ \r\n\ @author\ Kinnel\ Tsang\r\n\ @version\ June\ 15,\ 2022\r\n
+comment0.text=\r\n\ This\ class\ is\ the\ screen\ where\ the\ it\ shows\ the\ number\ of\ strokes\r\n\ the\ player\ took\ to\ get\ in\ the\ hole\ and\ whether\ they\ won\ or\ lost.\r\n\ \r\n\ @author\ Kinnel\ Tsang\r\n\ @version\ June\ 15,\ 2022\r\n
 comment1.params=strokes\ win
 comment1.target=EndScreen(int,\ boolean)
 comment1.text=\r\n\ Creates\ a\ the\ endscreen.\r\n\ \r\n\ @param\ strokes\:\ The\ number\ of\ strokes\ the\ player\ took\r\n\ @param\ win\:\ Displays\ the\ number\ of\ strokes\ on\ the\ screen\r\n\ if\ they\ won.\ If\ they\ lost,\ shows\ a\ 'you\ lose'\ text.\r\n

@@ -1,8 +1,9 @@
 #BlueJ class context
 comment0.target=Instructions
-comment0.text=\r\n\ This\ class\ is\ the\ game\ world\ where\ the\ player\ will\ play\ the\ game.\r\n\ \r\n\ @author\ Kinnel\ Tsang\r\n\ @version\ June\ 15,\ 2022\r\n
+comment0.text=\r\n\ This\ class\ is\ shows\ the\ 'how\ to\ play'\ screen\ for\ the\ user.\r\n\ \r\n\ @author\ Kinnel\ Tsang\r\n\ @version\ June\ 16,\ 2022\r\n
 comment1.params=
 comment1.target=Instructions()
+comment1.text=\r\n\ Constructor\ for\ instructions\ class.\r\n
 comment2.params=
 comment2.target=void\ act()
 numComments=3

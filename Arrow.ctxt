@@ -1,14 +1,18 @@
 #BlueJ class context
 comment0.target=Arrow
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Arrow\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Shows\ an\ arrow\ to\ help\ the\ player\ when\ aiming\ to\ put\ the\r\n\ golf\ ball.\r\n\ \r\n\ @author\ Kinnel\ Tsang\r\n\ @version\ June\ 16,\ 2022\r\n
 comment1.params=height
 comment1.target=Arrow(int)
+comment1.text=\r\n\ Constructor\ for\ an\ object\ of\ the\ Arrow\ class.\r\n\ \r\n\ @param\ height\:\ Sets\ the\ height\ or\ size\ of\ the\ arrow.\r\n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=height
 comment3.target=void\ setHeight(int)
+comment3.text=\r\n\ Sets\ the\ height\ of\ the\ arrow.\r\n\ \r\n\ @param\ height\:\ Sets\ the\ height\ or\ size\ of\ the\ arrow.\r\n
 comment4.params=
 comment4.target=void\ disappear()
+comment4.text=\r\n\ Makes\ the\ arrow\ invisible.\r\n
 comment5.params=
 comment5.target=void\ reappear()
+comment5.text=\r\n\ Makes\ the\ arrow\ visible.\r\n
 numComments=6

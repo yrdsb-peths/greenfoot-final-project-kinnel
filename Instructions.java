@@ -1,19 +1,23 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * This class is the game world where the player will play the game.
+ * This class is shows the 'how to play' screen for the user.
  * 
  * @author Kinnel Tsang
- * @version June 15, 2022
+ * @version June 16, 2022
  */
 public class Instructions extends World
 {
+    // This array stores all the pages of 'how to play'
     private GreenfootImage[] frames = new GreenfootImage[7];
     private Label back = new Label("Press 'Esc' to go back", 20);
     private int curFrame;
     private int delay;
     private MouseInfo mouse;
     
+    /**
+     * Constructor for instructions class.
+     */
     public Instructions()
     {    
         super(1100, 500, 1);
@@ -27,6 +31,7 @@ public class Instructions extends World
         delay = 10;
     }
     
+    // Changes the screen depending for next or previous set of instructions
     public void act()
     {
         mouse = Greenfoot.getMouseInfo();
